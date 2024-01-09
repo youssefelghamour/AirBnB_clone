@@ -52,23 +52,23 @@ $
 ```
 
 ## Files and Directories
-##### console.py
+##### `console.py`
 - Entry point for the command interpreter.
 - Commands supported include EOF, quit, create, destroy, show, all, and update.
 
-#### models/
+#### `models/`
 - Directory containing classes for the project.
 
-  ##### base_model.py
+  ##### `base_model.py`
   - The base class for all the models.
 
-  #### engine/
+  #### `engine/`
   - Directory containing storage classes for the JSON serialization and deserialization.
 
-    ##### file_storage.py
+    ##### `file_storage.py`
      - Serializes instances to a JSON file and deserializes JSON file to instances
 
-#### tests/
+#### `tests/`
 - Directory for unit tests.
 
 ## Authors
