@@ -7,7 +7,7 @@ This project is an implementation of the first step towards building an AirBnB c
 The command interpreter allows users to interact with the AirBnB objects by performing various operations, including creating new objects, retrieving objects from files or databases, updating attributes, and more.
 
 ## How to start it:
-* Clone this repository: `git clone "https://github.com/alexaorrico/AirBnB_clone.git"`
+* Clone this repository: `git clone "https://github.com/MahmoudHammam0/AirBnB_clone.git"`
 * Access the AirBnb directory: `cd AirBnB_clone`
 * Run hbnb (interactively): `./console` and enter command
 * Run hbnb (non-interactively): `echo "<command>" | ./console.py`
@@ -72,5 +72,5 @@ $
 - Directory for unit tests.
 
 ## Authors
-Mahmoud Hammam
-Youssef El Ghamour
+* **Mahmoud Hammam** - [MahmoudHammam0](https://github.com/MahmoudHammam0)
+* **Youssef El Ghamour** - [youssefelghamour](https://github.com/youssefelghamour)
