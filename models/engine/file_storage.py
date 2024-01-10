@@ -25,7 +25,7 @@ class FileStorage:
             creates a new object (element) in the objects dictionary
 
             key = <obj class name>.id
-            Value = dictionary representation of obj (obj.to_dict())
+            Value = the object itself
             """
         key = obj.__class__.__name__ + "." + obj.id
         self.__objects[key] = obj
@@ -45,7 +45,15 @@ class FileStorage:
                 json_objs = json.load(file)
             for key in json_objs:
                 class_name, obj_id = key.split('.')
-                classes = {'BaseModel': BaseModel, 'User': User}
+                classes = {
+                        'BaseModel': BaseModel,
+                        'User': User,
+                        'Place': Place,
+                        'State': State,
+                        'City': City,
+                        'Amenity': Amenity,
+                        'Review': Review
+                        }
                 cls = classes[class_name]
                 self.__objects[key] = cls(**json_objs[key])
         except:
