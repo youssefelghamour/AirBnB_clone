@@ -2,6 +2,7 @@
 '''console module'''
 import cmd
 from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -29,26 +30,29 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             ins = BaseModel()
+            self.my_dict[ins.id] = ins
             ins.save()
             print(ins.id)
-            self.my_dict[ins.id] = ins
 
     def do_show(self, line):
         '''Prints the string of an instance based on the class name and id'''
-        x = line.split()
-        if len(x) < 2:
-            if len(x) == 0:
+        lst = line.split()
+        if len(lst) < 2:
+            if len(lst) == 0:
                 print("** class name missing **")
-            elif x[0] != 'BaseModel':
+            elif lst[0] != 'BaseModel':
                 print("** class doesn't exist **")
-            elif len(x) == 1 and x[0] == 'BaseModel':
+            elif len(lst) == 1 and lst[0] == 'BaseModel':
                 print("** instance id missing **")
-        elif len(x) == 2:
-            if x[1] not in self.my_dict:
+        elif len(lst) == 2:
+            if lst[1] not in self.my_dict:
                 print("** no instance found **")
-            for key, value in self.my_dict.items():
-                if key == x[1]:
-                    print(value)
+            else:
+                for key, value in self.my_dict.items():
+                    if key == lst[1]:
+                        the_dict = value.__dict__
+                        base_ins = BaseModel(**the_dict)
+                        print(base_ins)
 
 
 
