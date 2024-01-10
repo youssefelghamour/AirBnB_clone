@@ -44,6 +44,9 @@ class FileStorage:
             with open(self.__file_path, 'r') as file:
                 json_objs = json.load(file)
             for key in json_objs:
-                self.__objects[key] = BaseModel(**json_objs[key])
+                class_name, obj_id = key.split('.')
+                classes = {'BaseModel': BaseModel, 'User': User}
+                cls = classes[class_name]
+                self.__objects[key] = cls(**json_objs[key])
         except:
             pass
