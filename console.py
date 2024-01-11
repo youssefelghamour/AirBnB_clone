@@ -136,11 +136,20 @@ class HBNBCommand(cmd.Cmd):
                         v.save()
 
     def default(self, line):
-        '''retrieve all instances of a class'''
-        line = (line.split('.'))
-        arg = "{}".format(line[0])
-        self.do_all(arg)
-
+        ''' Executes the appropiate command (ex: <class name>.command()) '''
+        parts = line.split('.')
+        if len(parts) == 2:
+            if parts[1] == 'count()':
+                count = 0
+                class_name = parts[0]
+                for k, v in storage.all().items():
+                    name, x = k.split('.')
+                    if class_name == name:
+                        count += 1
+                print(count)
+            elif parts[1] == 'all()':
+                arg = parts[0]
+                self.do_all(arg)
 
 
 if __name__ == '__main__':
