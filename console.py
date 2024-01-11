@@ -137,6 +137,7 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         ''' Executes the appropiate command (ex: <class name>.command()) '''
+        commands_list = ["show", "destroy"]
         parts = line.split('.')
         class_name = parts[0]
         if len(parts) == 2:
@@ -149,14 +150,17 @@ class HBNBCommand(cmd.Cmd):
                 print(count)
             elif parts[1] == 'all()':
                 self.do_all(class_name)
-            elif (parts[1].split('(')[0]) == 'show':
+            elif (parts[1].split('(')[0]) in commands_list:
                 st = parts[1]
                 st = st.split('(')
                 command = st[0]
                 id_number = st[1]
                 id_number = id_number.strip(')').strip('"')
                 new_line = "{} {}".format(class_name, id_number)
-                self.do_show(new_line)
+                if command == 'show':
+                    self.do_show(new_line)
+                elif command == 'destroy':
+                    self.do_destroy(new_line)
 
 
 if __name__ == '__main__':
