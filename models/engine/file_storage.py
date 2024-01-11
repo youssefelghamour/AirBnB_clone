@@ -1,6 +1,12 @@
 #!/usr/bin/python3
 """ FileStorage class Module """
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 import json
 
 
@@ -15,10 +21,19 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
+    classes = {
+            'BaseModel': BaseModel,
+            'User': User,
+            'Place': Place,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Review': Review
+            }
 
     def all(self):
         """ returns the dictionary __objects """
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """ sets in __objects the obj with key <obj class name>.id
@@ -28,33 +43,27 @@ class FileStorage:
             Value = the object itself
             """
         key = obj.__class__.__name__ + "." + obj.id
-        self.__objects[key] = obj
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """ serializes __objects to the JSON file (path: __file_path) """
         json_objs = {}
-        for key in self.__objects:
-            json_objs[key] = self.__objects[key].to_dict()
-        with open(self.__file_path, 'w') as file:
+        with open(FileStorage.__file_path, 'w') as file:
+            for key, value in FileStorage.__objects.items():
+                json_objs[key] = value.to_dict()
             json.dump(json_objs, file)
 
     def reload(self):
         """ deserializes the JSON file to __objects """
+        new_objs = {}
         try:
-            with open(self.__file_path, 'r') as file:
-                json_objs = json.load(file)
-            for key in json_objs:
+            with open(FileStorage.__file_path, 'r') as f:
+                objs = json.load(f)
+            for key, value in objs.items():
                 class_name, obj_id = key.split('.')
-                classes = {
-                        'BaseModel': BaseModel,
-                        'User': User,
-                        'Place': Place,
-                        'State': State,
-                        'City': City,
-                        'Amenity': Amenity,
-                        'Review': Review
-                        }
-                cls = classes[class_name]
-                self.__objects[key] = cls(**json_objs[key])
+                the_class = FileStorage.classes[class_name]
+                ins = the_class(**value)
+                new_objs[key] = ins
+            FileStorage.__objects = new_objs
         except:
             pass

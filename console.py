@@ -8,7 +8,6 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     '''simple command interpreter class'''
     prompt = '(hbnb)'
-    my_dict = {}
 
     def do_EOF(self, line):
         '''EOF exit to the program'''
@@ -26,33 +25,66 @@ class HBNBCommand(cmd.Cmd):
         '''Creates a new instance of BaseModel, saves it (to the JSON file)'''
         if line == '':
             print("** class name missing **")
-        elif line != 'BaseModel':
+        elif line not in storage.classes:
             print("** class doesn't exist **")
         else:
-            ins = BaseModel()
-            self.my_dict[ins.id] = ins
+            the_class = storage.classes[line]
+            ins = the_class()
             ins.save()
             print(ins.id)
 
     def do_show(self, line):
         '''Prints the string of an instance based on the class name and id'''
-        lst = line.split()
-        if len(lst) < 2:
-            if len(lst) == 0:
+        args = line.split()
+        if len(args) < 2:
+            if len(args) == 0:
                 print("** class name missing **")
-            elif lst[0] != 'BaseModel':
+            elif args[0] not in storage.classes:
                 print("** class doesn't exist **")
-            elif len(lst) == 1 and lst[0] == 'BaseModel':
+            elif args[0] in storage.classes:
                 print("** instance id missing **")
-        elif len(lst) == 2:
-            if lst[1] not in self.my_dict:
+        elif len(args) == 2:
+            key = "{}.{}".format(args[0], args[1])
+            obj_dict = storage.all()
+            if args[0] not in storage.classes:
+                print("** class doesn't exist **")
+            elif key not in obj_dict:
                 print("** no instance found **")
             else:
-                for key, value in self.my_dict.items():
-                    if key == lst[1]:
-                        the_dict = value.__dict__
-                        base_ins = BaseModel(**the_dict)
-                        print(base_ins)
+                print(obj_dict[key])
+
+    def do_destroy(self, line):
+        '''Deletes an instance based on the class name and id'''
+        args = line.split()
+        if len(args) < 2:
+            if len(args) == 0:
+                print("** class name missing **")
+            elif args[0] not in storage.classes:
+                print("** class doesn't exist **")
+            elif args[0] in storage.classes:
+                print("** instance id missing **")
+        elif len(args) == 2:
+            key = "{}.{}".format(args[0], args[1])
+            obj_dict = storage.all()
+            if args[0] not in storage.classes:
+                print("** class doesn't exist **")
+            elif key not in obj_dict:
+                print("** no instance found **")
+            else:
+                del (storage.all()[key])
+                storage.save()
+
+    def do_all(self, line):
+        '''Prints all string representation of all instances'''
+        the_list = []
+        if line != '' and line not in storage.classes:
+            print("** class doesn't exist **")
+        elif line == '' or line in storage.classes:
+            objs_dict = storage.all()
+            for key, value in objs_dict.items():
+                string = str(value)
+                the_list.append(string)
+            print(the_list)
 
 
 
