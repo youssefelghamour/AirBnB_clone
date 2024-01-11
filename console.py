@@ -82,9 +82,51 @@ class HBNBCommand(cmd.Cmd):
         elif line == '' or line in storage.classes:
             objs_dict = storage.all()
             for key, value in objs_dict.items():
-                string = str(value)
-                the_list.append(string)
+                the_list.append(str(value))
             print(the_list)
+
+    def do_update(self, line):
+        '''Updates an instance by adding or updating attribute'''
+        args = line.split()
+        obj_dict = storage.all()
+        if len(args) < 2:
+            if len(args) == 0:
+                print("** class name missing **")
+            elif args[0] not in storage.classes:
+                print("** class doesn't exist **")
+            elif args[0] in storage.classes:
+                print("** instance id missing **")
+        elif len(args) == 2:
+            key = "{}.{}".format(args[0], args[1])
+            if args[0] not in storage.classes:
+                print("** class doesn't exist **")
+            elif key not in obj_dict:
+                print("** no instance found **")
+            else:
+                print("** attribute name missing **")
+        elif len(args) == 3:
+            key = "{}.{}".format(args[0], args[1])
+            if args[0] not in storage.classes:
+                print("** class doesn't exist **")
+            elif key not in obj_dict:
+                print("** no instance found **")
+            else:
+                print("** value missing **")
+        else:
+            key = "{}.{}".format(args[0], args[1])
+            if args[0] not in storage.classes:
+                print("** class doesn't exist **")
+            elif key not in obj_dict:
+                print("** no instance found **")
+            else:
+                for k, v in storage.all().items():
+                    if k == key:
+                        args[3] = args[3].strip('"')
+                        if args[2] in v.__dict__:
+                            attr_type = type(getattr(v, args[2]))
+                            args[3] = attr_type(args[3])
+                        setattr(v, args[2], args[3])
+                        v.save()
 
 
 
