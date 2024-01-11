@@ -7,7 +7,7 @@ from models import storage
 
 class HBNBCommand(cmd.Cmd):
     '''simple command interpreter class'''
-    prompt = '(hbnb)'
+    prompt = '(hbnb) '
 
     def do_EOF(self, line):
         '''EOF exit to the program'''
@@ -138,18 +138,25 @@ class HBNBCommand(cmd.Cmd):
     def default(self, line):
         ''' Executes the appropiate command (ex: <class name>.command()) '''
         parts = line.split('.')
+        class_name = parts[0]
         if len(parts) == 2:
             if parts[1] == 'count()':
                 count = 0
-                class_name = parts[0]
                 for k, v in storage.all().items():
                     name, x = k.split('.')
                     if class_name == name:
                         count += 1
                 print(count)
             elif parts[1] == 'all()':
-                arg = parts[0]
-                self.do_all(arg)
+                self.do_all(class_name)
+            elif (parts[1].split('(')[0]) == 'show':
+                st = parts[1]
+                st = st.split('(')
+                command = st[0]
+                id_number = st[1]
+                id_number = id_number.strip(')').strip('"')
+                new_line = "{} {}".format(class_name, id_number)
+                self.do_show(new_line)
 
 
 if __name__ == '__main__':
