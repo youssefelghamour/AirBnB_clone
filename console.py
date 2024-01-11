@@ -77,10 +77,17 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, line):
         '''Prints all string representation of all instances'''
         the_list = []
-        if line != '' and line not in storage.classes:
-            print("** class doesn't exist **")
-        elif line == '' or line in storage.classes:
-            objs_dict = storage.all()
+        objs_dict = storage.all()
+        if line:
+            if line not in storage.classes:
+                print("** class doesn't exist **")
+            else:
+                for key, value in objs_dict.items():
+                    class_name, x = key.split('.')
+                    if class_name == line:
+                        the_list.append(str(value))
+                print(the_list)
+        else:
             for key, value in objs_dict.items():
                 the_list.append(str(value))
             print(the_list)
@@ -127,6 +134,12 @@ class HBNBCommand(cmd.Cmd):
                             args[3] = attr_type(args[3])
                         setattr(v, args[2], args[3])
                         v.save()
+
+    def default(self, line):
+        '''retrieve all instances of a class'''
+        line = (line.split('.'))
+        arg = "{}".format(line[0])
+        self.do_all(arg)
 
 
 
