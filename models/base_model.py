@@ -25,7 +25,7 @@ class BaseModel:
 
     def __str__(self):
         '''defines how the should be represented as a string'''
-        return ("[{}] ({}) {}".format(__class__.__name__,
+        return ("[{}] ({}) {}".format(self.__class__.__name__,
                                       self.id, self.__dict__))
 
     def save(self):
@@ -38,5 +38,5 @@ class BaseModel:
         res = self.__dict__.copy()
         res['created_at'] = res['created_at'].isoformat()
         res['updated_at'] = res['updated_at'].isoformat()
-        res['__class__'] = __class__.__name__
+        res['__class__'] = self.__class__.__name__
         return res
