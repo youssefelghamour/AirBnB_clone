@@ -148,7 +148,16 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def default(self, line):
-        ''' Executes the appropiate command (ex: <class name>.command()) '''
+        ''' Executes the appropiate command (ex: <class name>.command())
+
+            <class name>.all(): prints all the instances of the specified class
+            <class name>.show(<id>) : prints the class instance based on its id
+            <class name>.destroy(<id>) : destroys the instance based on its id
+            <class name>.update(<id>, <attribute name>, <attribute value>) :
+                                updates the instance attributes based on its id
+            <class name>.update(<id>, <dictionary representation>) : update an
+                                instance based on its id with a dictionary
+        '''
         commands = {'all': self.do_all, 'show': self.do_show,
                     'count': self.do_count, 'destroy': self.do_destroy,
                     'update': self.do_update}
@@ -159,25 +168,29 @@ class HBNBCommand(cmd.Cmd):
         parts[1] = parts[1].replace(':', '').replace("'", '')
         parts[1] = parts[1].split()
         command_name = parts[1][0]
-        the_command = commands[command_name]
-        if len(parts[1]) == 1:
-            arg = parts[0]
-            the_command(arg)
-        elif len(parts[1]) == 2:
-            arg = parts[0] + ' ' + parts[1][1]
-            the_command(arg)
-        elif len(parts[1]) > 2:
-            if len(parts[1]) > 4:
-                for i in range(2, len(parts[1]) - 1, 2):
-                    key = parts[1][i]
-                    value = parts[1][i + 1]
-                    arg = (parts[0] + ' ' + parts[1][1] + ' ' +
-                           key + ' ' + value)
-                    the_command(arg)
-            else:
-                arg = (parts[0] + ' ' + parts[1][1] + ' ' +
-                       parts[1][2] + ' ' + parts[1][3])
+        the_command = None
+        for k, v in commands.items():
+            if command_name == k:
+                the_command = v
+        if the_command is not None:
+            if len(parts[1]) == 1:
+                arg = parts[0]
                 the_command(arg)
+            elif len(parts[1]) == 2:
+                arg = parts[0] + ' ' + parts[1][1]
+                the_command(arg)
+            elif len(parts[1]) > 2:
+                if len(parts[1]) > 4:
+                    for i in range(2, len(parts[1]) - 1, 2):
+                        key = parts[1][i]
+                        value = parts[1][i + 1]
+                        arg = (parts[0] + ' ' + parts[1][1] + ' ' +
+                               key + ' ' + value)
+                        the_command(arg)
+                else:
+                    arg = (parts[0] + ' ' + parts[1][1] + ' ' +
+                           parts[1][2] + ' ' + parts[1][3])
+                    the_command(arg)
 
 
 if __name__ == '__main__':
