@@ -129,38 +129,55 @@ class HBNBCommand(cmd.Cmd):
                 for k, v in storage.all().items():
                     if k == key:
                         args[3] = args[3].strip('"')
+                        args[3] = args[3].strip("'")
+                        args[2] = args[2].strip('"')
+                        args[2] = args[2].strip("'")
                         if args[2] in v.__dict__:
                             attr_type = type(getattr(v, args[2]))
                             args[3] = attr_type(args[3])
                         setattr(v, args[2], args[3])
                         v.save()
 
+    def do_count(self, line):
+        '''retrieve the number of instances of a class'''
+        count = 0
+        for k, v in storage.all().items():
+            name, x = k.split('.')
+            if line == name:
+                count += 1
+        print(count)
+
     def default(self, line):
         ''' Executes the appropiate command (ex: <class name>.command()) '''
-        commands_list = ["show", "destroy"]
+        commands = {'all': self.do_all, 'show': self.do_show,
+                    'count': self.do_count, 'destroy': self.do_destroy,
+                    'update': self.do_update}
         parts = line.split('.')
-        class_name = parts[0]
-        if len(parts) == 2:
-            if parts[1] == 'count()':
-                count = 0
-                for k, v in storage.all().items():
-                    name, x = k.split('.')
-                    if class_name == name:
-                        count += 1
-                print(count)
-            elif parts[1] == 'all()':
-                self.do_all(class_name)
-            elif (parts[1].split('(')[0]) in commands_list:
-                st = parts[1]
-                st = st.split('(')
-                command = st[0]
-                id_number = st[1]
-                id_number = id_number.strip(')').strip('"')
-                new_line = "{} {}".format(class_name, id_number)
-                if command == 'show':
-                    self.do_show(new_line)
-                elif command == 'destroy':
-                    self.do_destroy(new_line)
+        parts[1] = parts[1].replace('(', ' ').replace(')', '')
+        parts[1] = parts[1].replace('"', '').replace(',', '')
+        parts[1] = parts[1].replace('{', '').replace('}', '')
+        parts[1] = parts[1].replace(':', '').replace("'", '')
+        parts[1] = parts[1].split()
+        command_name = parts[1][0]
+        the_command = commands[command_name]
+        if len(parts[1]) == 1:
+            arg = parts[0]
+            the_command(arg)
+        elif len(parts[1]) == 2:
+            arg = parts[0] + ' ' + parts[1][1]
+            the_command(arg)
+        elif len(parts[1]) > 2:
+            if len(parts[1]) > 4:
+                for i in range(2, len(parts[1]) - 1, 2):
+                    key = parts[1][i]
+                    value = parts[1][i + 1]
+                    arg = (parts[0] + ' ' + parts[1][1] + ' ' +
+                           key + ' ' + value)
+                    the_command(arg)
+            else:
+                arg = (parts[0] + ' ' + parts[1][1] + ' ' +
+                       parts[1][2] + ' ' + parts[1][3])
+                the_command(arg)
 
 
 if __name__ == '__main__':
