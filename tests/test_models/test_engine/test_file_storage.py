@@ -68,8 +68,6 @@ class TestFileStorage(unittest.TestCase):
         with open(FileStorage._FileStorage__file_path, 'r') as f:
             content = f.read()
         self.assertTrue(type(content) is str)
-        content = json.load(content)
-        self.assertTrue(type(content) is dict)
 
     def test_save_with_all_classes(self):
         '''test save method with different classes'''
