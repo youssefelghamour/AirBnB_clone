@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 '''Test module for FileStorage class'''
+import json
 import os
 import unittest
 from models.base_model import BaseModel
@@ -29,3 +30,8 @@ class TestFileStorage(unittest.TestCase):
         '''test save method of FileStorage'''
         self.storage.save()
         self.assertTrue(os.path.exists('file.json'))
+        with open('file.json', 'r') as f:
+            content = f.read()
+        self.assertTrue(type(content) is str)
+        content = json.loads(content)
+        self.assertTrue(type(content) is dict)
