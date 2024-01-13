@@ -35,3 +35,10 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(type(content) is str)
         content = json.loads(content)
         self.assertTrue(type(content) is dict)
+
+    def test_all_dict_value_types(self):
+        '''test type of values of dictionary returned by all method'''
+        self.storage.new(self.new_ins)
+        key = self.new_ins.__class__.__name__ + "." + self.new_ins.id
+        value = self.storage.all()[key]
+        self.assertIsInstance(self.new_ins, type(value))
