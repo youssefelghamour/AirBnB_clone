@@ -20,6 +20,10 @@ class TestFileStorage(unittest.TestCase):
         self.storage = FileStorage()
         self.new_ins = BaseModel()
 
+    def test_class_name(self):
+        '''test class name'''
+        self.assertEqual(self.storage.__class__.__name__, "FileStorage")
+
     def test_all(self):
         '''Test all method of FileStorage'''
         the_dict = self.storage.all()
