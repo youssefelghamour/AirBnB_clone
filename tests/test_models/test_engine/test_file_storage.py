@@ -160,3 +160,8 @@ class TestFileStorage(unittest.TestCase):
         '''test new method with more than 1 argument'''
         with self.assertRaises(TypeError):
             self.storage.new(BaseModel(), User(), City())
+
+    def test_reload_str_arg(self):
+        '''test reload method with string argument'''
+        with self.assertRaises(TypeError):
+            self.storage.reload("RELOAD")
