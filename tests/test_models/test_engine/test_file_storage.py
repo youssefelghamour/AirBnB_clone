@@ -22,10 +22,9 @@ class TestFileStorage(unittest.TestCase):
 
     def tearDown(self):
         '''clean up'''
-        try:
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
             os.remove(FileStorage._FileStorage__file_path)
-        except IOError:
-            pass
 
     def test_class_name(self):
         '''test class name'''
@@ -76,6 +75,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(type(content) is str)
         content = json.loads(content)
         self.assertTrue(type(content) is dict)
+        self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
 
     def test_save_with_all_classes(self):
         '''test save method with different classes'''
@@ -109,7 +109,6 @@ class TestFileStorage(unittest.TestCase):
         key = self.new_ins.__class__.__name__ + "." + self.new_ins.id
         value = self.storage.all()[key]
         self.assertIsInstance(self.new_ins, type(value))
-        self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
 
     def type_of_FileStorage(self):
         '''test the type of FileStorage class'''
