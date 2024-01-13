@@ -3,6 +3,8 @@
 import unittest
 from models.user import User
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
+from models import storage
 
 
 class TestUser(unittest.TestCase):
@@ -19,3 +21,12 @@ class TestUser(unittest.TestCase):
         ins = User()
         self.assertIsInstance(ins, User)
         self.assertTrue(issubclass(type(ins), BaseModel))
+
+    def test_attr_comp(self):
+        '''test User class attributes'''
+        attr = {"email": str, "password": str,
+                "first_name": str, "last_name": str}
+        ins = User()
+        for key, value in attr.items():
+            self.assertTrue(hasattr(ins, key))
+            self.assertEqual(type(getattr(ins, key, None)), value)
