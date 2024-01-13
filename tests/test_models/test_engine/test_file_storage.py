@@ -35,7 +35,6 @@ class TestFileStorage(unittest.TestCase):
         '''Test all method of FileStorage'''
         the_dict = self.storage.all()
         self.assertIsInstance(the_dict, dict)
-        self.assertFalse(os.path.isfile(FileStorage._FileStorage__file_path))
 
     def test_new(self):
         '''test new method of FileStorage'''
@@ -110,6 +109,7 @@ class TestFileStorage(unittest.TestCase):
         key = self.new_ins.__class__.__name__ + "." + self.new_ins.id
         value = self.storage.all()[key]
         self.assertIsInstance(self.new_ins, type(value))
+        self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
 
     def type_of_FileStorage(self):
         '''test the type of FileStorage class'''
