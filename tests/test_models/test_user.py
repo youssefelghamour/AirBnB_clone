@@ -4,14 +4,13 @@ import unittest
 from models.user import User
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
-from models import storage
 
 
 class TestUser(unittest.TestCase):
     '''unittest of the User class'''
     def test_attr(self):
         '''test attributes of User class'''
-        ins = User
+        ins = User()
         self.assertTrue(hasattr(ins, "email"))
         self.assertEqual(type(ins.email), str)
         self.assertTrue(hasattr(ins, "password"))
