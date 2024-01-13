@@ -63,6 +63,8 @@ class TestFileStorage(unittest.TestCase):
 
     def test_save(self):
         '''test save method of FileStorage'''
+        os.remove(FileStorage._FileStorage__file_path)
+        self.storage.new(BaseModel())
         self.storage.save()
         self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
         with open(FileStorage._FileStorage__file_path, 'r') as f:
