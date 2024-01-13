@@ -5,6 +5,12 @@ import os
 import unittest
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class TestFileStorage(unittest.TestCase):
@@ -21,10 +27,35 @@ class TestFileStorage(unittest.TestCase):
 
     def test_new(self):
         '''test new method of FileStorage'''
+        user = User()
+        city = City()
+        amen = Amenity()
+        rev = Review()
+        pl = Place()
+        state = State()
         self.storage.new(self.new_ins)
+        self.storage.new(user)
+        self.storage.new(city)
+        self.storage.new(amen)
+        self.storage.new(rev)
+        self.storage.new(pl)
+        self.storage.new(state)
         self.assertNotEqual(self.storage.all(), {})
         key = self.new_ins.__class__.__name__ + "." + self.new_ins.id
         self.assertTrue(key in self.storage.all())
+        self.assertTrue(self.new_ins in self.storage.all().values())
+        self.assertTrue("User" + "." + user.id in self.storage.all())
+        self.assertTrue(user in self.storage.all().values())
+        self.assertTrue("City" + "." + city.id in self.storage.all())
+        self.assertTrue(city in self.storage.all().values())
+        self.assertTrue("Amenity" + "." + amen.id in self.storage.all())
+        self.assertTrue(amen in self.storage.all().values())
+        self.assertTrue("Review" + "." + rev.id in self.storage.all())
+        self.assertTrue(rev in self.storage.all().values())
+        self.assertTrue("Place" + "." + pl.id in self.storage.all())
+        self.assertTrue(pl in self.storage.all().values())
+        self.assertTrue("State" + "." + state.id in self.storage.all())
+        self.assertTrue(state in self.storage.all().values())
 
     def test_save(self):
         '''test save method of FileStorage'''
