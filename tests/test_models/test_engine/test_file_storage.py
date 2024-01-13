@@ -155,3 +155,8 @@ class TestFileStorage(unittest.TestCase):
         '''test new method without argument'''
         with self.assertRaises(TypeError):
             self.storage.new()
+
+    def test_new_with_more_arg(self):
+        '''test new method with more than 1 argument'''
+        with self.assertRaises(TypeError):
+            self.storage.new(BaseModel(), User(), City())
