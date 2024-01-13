@@ -24,6 +24,13 @@ class TestFileStorage(unittest.TestCase):
         '''test class name'''
         self.assertEqual(self.storage.__class__.__name__, "FileStorage")
 
+    def test_FileStorage_no_arg(self):
+        '''test FileStorage class with no argument'''
+        with self.assertRaises(TypeError) as e:
+            FileStorage.__init__()
+        error = "descriptor '__init__' of 'object' object needs an argument"
+        self.assertEqual(str(e.exception), error)
+
     def test_all(self):
         '''Test all method of FileStorage'''
         the_dict = self.storage.all()
