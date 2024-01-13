@@ -17,13 +17,15 @@ class TestFileStorage(unittest.TestCase):
     '''Test class for FileStorage'''
     def setUp(self):
         '''class initializations'''
-        os.remove(FileStorage._FileStorage__file_path)
         self.storage = FileStorage()
         self.new_ins = BaseModel()
 
     def tearDown(self):
         '''clean up'''
-        os.remove(FileStorage._FileStorage__file_path)
+        try:
+            os.remove(FileStorage._FileStorage__file_path)
+        except IOError:
+            pass
 
     def test_class_name(self):
         '''test class name'''
@@ -92,7 +94,7 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(pl)
         self.storage.new(state)
         self.storage.save()
-        with open("file.json", 'r') as f:
+        with open(FileStorage._FileStorage__file_path, 'r') as f:
             content = f.read()
         self.assertTrue("BaseModel" + "." + self.new_ins.id in content)
         self.assertTrue("User" + "." + user.id in content)
