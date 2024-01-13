@@ -17,8 +17,13 @@ class TestFileStorage(unittest.TestCase):
     '''Test class for FileStorage'''
     def setUp(self):
         '''class initializations'''
+        os.remove(FileStorage._FileStorage__file_path)
         self.storage = FileStorage()
         self.new_ins = BaseModel()
+
+    def tearDown(self):
+        '''clean up'''
+        os.remove(FileStorage._FileStorage__file_path)
 
     def test_class_name(self):
         '''test class name'''
@@ -65,7 +70,6 @@ class TestFileStorage(unittest.TestCase):
         '''test save method of FileStorage'''
         self.storage.save()
         self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
-        self.assertTrue(os.path.exist(FileStorage._FileStorage__file_path))
         with open(FileStorage._FileStorage__file_path, 'r') as f:
             content = f.read()
             self.assertTrue(type(content) is str)
