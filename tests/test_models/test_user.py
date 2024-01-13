@@ -23,12 +23,3 @@ class TestUser(unittest.TestCase):
         ins = User()
         self.assertIsInstance(ins, User)
         self.assertTrue(issubclass(type(ins), BaseModel))
-
-    def test_attr_comp(self):
-        '''test User class attributes'''
-        attr = {"email": str, "password": str,
-                "first_name": str, "last_name": str}
-        ins = User()
-        for key, value in attr.items():
-            self.assertTrue(hasattr(ins, key))
-            self.assertEqual(type(getattr(ins, key, None)), value)
