@@ -150,3 +150,8 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(hasattr(FileStorage, "_FileStorage__file_path"))
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
         self.assertTrue(hasattr(FileStorage, "classes"))
+
+    def test_new_with_no_arg(self):
+        '''test new method without argument'''
+        with self.assertRaises(TypeError):
+            self.storage.new()
