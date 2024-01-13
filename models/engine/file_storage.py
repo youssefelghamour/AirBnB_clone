@@ -65,5 +65,5 @@ class FileStorage:
                 ins = the_class(**value)
                 new_objs[key] = ins
             FileStorage.__objects = new_objs
-        except:
+        except FileNotFoundError:
             pass
