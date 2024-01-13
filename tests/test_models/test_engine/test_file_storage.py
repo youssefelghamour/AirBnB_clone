@@ -64,7 +64,7 @@ class TestFileStorage(unittest.TestCase):
     def test_save(self):
         '''test save method of FileStorage'''
         self.storage.save()
-        self.assertTrue(os.path.exists('file.json'))
+        self.assertTrue(os.path.isfile('file.json'))
         with open('file.json', 'r') as f:
             content = f.read()
         self.assertTrue(type(content) is str)
@@ -151,9 +151,11 @@ class TestFileStorage(unittest.TestCase):
 
     def test_attr(self):
         '''test attributes of FileStorage'''
+
         self.assertTrue(hasattr(FileStorage, "_FileStorage__file_path"))
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
         self.assertTrue(hasattr(FileStorage, "classes"))
+        self.assertEqual(getattr(FileStorage, "_FileStorage__objects"), {})
 
     def test_new_with_no_arg(self):
         '''test new method without argument'''
