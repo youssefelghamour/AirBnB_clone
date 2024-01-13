@@ -82,9 +82,10 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(rev)
         self.storage.new(pl)
         self.storage.new(state)
+        self.storage.save()
         with open("file.json", 'r') as f:
             content = f.read()
-        self.assertTrue(self.new_ins in content)
+        self.assertTrue("BaseModel" + "." + self.new_ins.id in content)
         self.assertTrue("User" + "." + user.id in content)
         self.assertTrue("City" + "." + city.id in content)
         self.assertTrue("Amenity" + "." + amen.id in content)
