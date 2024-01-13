@@ -14,7 +14,7 @@ class TestState(unittest.TestCase):
         self.assertTrue(hasattr(ins, "name"))
         self.assertEqual(type(ins.name), str)
 
-    def test_User_instance(self):
+    def test_State_instance(self):
         '''test State class with an instance'''
         ins = State()
         self.assertIsInstance(ins, State)
