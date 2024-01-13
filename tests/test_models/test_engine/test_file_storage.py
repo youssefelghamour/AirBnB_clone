@@ -103,3 +103,29 @@ class TestFileStorage(unittest.TestCase):
     def type_of_FileStorage(self):
         '''test the type of FileStorage class'''
         self.assertEqual(type(self.Storage), FileStorage)
+
+    def test_reload(self):
+        '''test reload method of FileStorage class'''
+        user = User()
+        city = City()
+        amen = Amenity()
+        rev = Review()
+        pl = Place()
+        state = State()
+        self.storage.new(self.new_ins)
+        self.storage.new(user)
+        self.storage.new(city)
+        self.storage.new(amen)
+        self.storage.new(rev)
+        self.storage.new(pl)
+        self.storage.new(state)
+        self.storage.save()
+        self.storage.reload()
+        obj_dict = self.storage.all()
+        self.assertTrue("BaseModel" + "." + self.new_ins.id in obj_dict)
+        self.assertTrue("User" + "." + user.id in obj_dict)
+        self.assertTrue("City" + "." + city.id in obj_dict)
+        self.assertTrue("Amenity" + "." + amen.id in obj_dict)
+        self.assertTrue("Review" + "." + rev.id in obj_dict)
+        self.assertTrue("Place" + "." + pl.id in obj_dict)
+        self.assertTrue("State" + "." + state.id in obj_dict)
