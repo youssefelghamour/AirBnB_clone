@@ -67,6 +67,31 @@ class TestFileStorage(unittest.TestCase):
         content = json.loads(content)
         self.assertTrue(type(content) is dict)
 
+    def test_save_with_all_classes(self):
+        '''test save method with different classes'''
+        user = User()
+        city = City()
+        amen = Amenity()
+        rev = Review()
+        pl = Place()
+        state = State()
+        self.storage.new(self.new_ins)
+        self.storage.new(user)
+        self.storage.new(city)
+        self.storage.new(amen)
+        self.storage.new(rev)
+        self.storage.new(pl)
+        self.storage.new(state)
+        with open("file.json", 'r') as f:
+            content = f.read()
+        self.assertTrue(self.new_ins in content)
+        self.assertTrue("User" + "." + user.id in content)
+        self.assertTrue("City" + "." + city.id in content)
+        self.assertTrue("Amenity" + "." + amen.id in content)
+        self.assertTrue("Review" + "." + rev.id in content)
+        self.assertTrue("Place" + "." + pl.id in content)
+        self.assertTrue("State" + "." + state.id in content)
+
     def test_all_dict_value_types(self):
         '''test type of values of dictionary returned by all method'''
         self.storage.new(self.new_ins)
