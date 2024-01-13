@@ -11,7 +11,7 @@ class TestFileStorage(unittest.TestCase):
         '''Test all method of FileStorage'''
         storage = FileStorage()
         self.assertEqual(storage.all(), {})
-        self.assertIsInstance(storage.all(), dict)
+        self.assertIs(storage.all(), dict)
 
     def test_new(self):
         '''test new method of FileStorage'''
@@ -21,3 +21,5 @@ class TestFileStorage(unittest.TestCase):
         self.assertNotEqual(storage.all(), {})
         key = new_ins.__class__.__name__ + "." + new_ins.id
         self.assertTrue(key in storage.all())
+
+    def test_save(self)
