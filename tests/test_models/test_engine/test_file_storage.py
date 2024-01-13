@@ -42,3 +42,7 @@ class TestFileStorage(unittest.TestCase):
         key = self.new_ins.__class__.__name__ + "." + self.new_ins.id
         value = self.storage.all()[key]
         self.assertIsInstance(self.new_ins, type(value))
+
+    def type_of_FileStorage(self):
+        '''test the type of FileStorage class'''
+        self.assertEqual(type(self.Storage), FileStorage)
