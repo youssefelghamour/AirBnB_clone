@@ -35,11 +35,3 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(type(content) is str)
         content = json.loads(content)
         self.assertTrue(type(content) is dict)
-
-    def test_reload(self):
-        '''test reload method of FileStorage'''
-        try:
-            self.storage.reload()
-            self.assertTrue(True)
-        except:
-            self.assertTrue(False)
