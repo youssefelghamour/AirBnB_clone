@@ -144,3 +144,9 @@ class TestFileStorage(unittest.TestCase):
         '''test all method with string argument'''
         with self.assertRaises(TypeError):
             self.storage.all("007")
+
+    def test_attr(self):
+        '''test attributes of FileStorage'''
+        self.assertTrue(hasattr(FileStorage, "_FileStorage__file_path"))
+        self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
+        self.assertTrue(hasattr(FileStorage, "classes"))
