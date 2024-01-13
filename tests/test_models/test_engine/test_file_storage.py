@@ -134,3 +134,8 @@ class TestFileStorage(unittest.TestCase):
         '''test save method with string argument'''
         with self.assertRaises(TypeError):
             self.storage.save("string")
+
+    def test_FileStorage_str_arg(self):
+        '''test FileStorage class init with string'''
+        with self.assertRaises(TypeError):
+            FileStorage("Hello")
