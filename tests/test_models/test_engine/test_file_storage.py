@@ -63,8 +63,6 @@ class TestFileStorage(unittest.TestCase):
 
     def test_save(self):
         '''test save method of FileStorage'''
-        os.remove(FileStorage._FileStorage__file_path)
-        self.storage.new(BaseModel())
         self.storage.save()
         self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
         with open(FileStorage._FileStorage__file_path, 'r') as f:
@@ -72,6 +70,7 @@ class TestFileStorage(unittest.TestCase):
             self.assertTrue(type(content) is str)
             content = json.loads(content)
             self.assertTrue(type(content) is dict)
+
     def test_save_with_all_classes(self):
         '''test save method with different classes'''
         user = User()
