@@ -129,3 +129,8 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue("Review" + "." + rev.id in obj_dict)
         self.assertTrue("Place" + "." + pl.id in obj_dict)
         self.assertTrue("State" + "." + state.id in obj_dict)
+
+    def test_save_str_arg(self):
+        '''test save method with string argument'''
+        with self.assertRaises(TypeError):
+            self.storage.save("string")
