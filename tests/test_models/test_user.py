@@ -11,10 +11,12 @@ class TestUser(unittest.TestCase):
     '''unittest of the User class'''
     def test_attr(self):
         '''test attributes of User class'''
-        self.assertTrue(hasattr(User, "email"))
-        self.assertTrue(hasattr(User, "password"))
-        self.assertTrue(hasattr(User, "first_name"))
-        self.assertTrue(hasattr(User, "last_name"))
+        ins = User
+        self.assertTrue(hasattr(ins, "email"))
+        self.assertEqual(type(ins.email), str)
+        self.assertTrue(hasattr(ins, "password"))
+        self.assertTrue(hasattr(ins, "first_name"))
+        self.assertTrue(hasattr(ins, "last_name"))
 
     def test_User_instance(self):
         '''test User class with an instance'''
