@@ -61,16 +61,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue("State" + "." + state.id in self.storage.all())
         self.assertTrue(state in self.storage.all().values())
 
-    def test_save(self):
-        '''test save method of FileStorage'''
-        self.storage.save()
-        self.assertTrue(os.path.isfile('file.json'))
-        with open('file.json', 'r') as f:
-            content = f.read()
-        self.assertTrue(type(content) is str)
-        content = json.loads(content)
-        self.assertTrue(type(content) is dict)
-
     def test_save_with_all_classes(self):
         '''test save method with different classes'''
         user = User()
