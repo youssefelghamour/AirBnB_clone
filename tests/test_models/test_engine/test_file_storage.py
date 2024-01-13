@@ -64,9 +64,8 @@ class TestFileStorage(unittest.TestCase):
     def test_save(self):
         '''test save method of FileStorage'''
         self.storage.save()
-        self.assertTrue(os.path.exists(FileStorage._FileStorage__file_path))
         self.assertTrue(os.path.isfile(FileStorage._FileStorage__file_path))
-        with open('file.json', 'r') as f:
+        with open(FileStorage._FileStorage__file_path, 'r') as f:
             content = f.read()
         self.assertTrue(type(content) is str)
         content = json.loads(content)
