@@ -5,12 +5,20 @@ from console import HBNBCommand
 import sys
 from io import StringIO
 from unittest.mock import patch
+import os
+from models.engine.file_storage import FileStorage
 
 
 class TestConsole(unittest.TestCase):
     '''Test class for console module'''
     classes = ['BaseModel', 'User', 'Place', 'State',
                'City', 'Amenity', 'Review']
+
+    def setUp(self):
+        '''setup each test'''
+        if os.path.isfile("file.json"):
+            os.remove("file.json")
+        FileStorage._FileStorage__objects = {}
 
     def test_quit_cmd(self):
         '''test quit command of console'''
@@ -193,8 +201,7 @@ EOF  all  count  create  destroy  help  quit  show  update
                 HBNBCommand().onecmd("create {}".format(class_name))
             class_id = f.getvalue()[:-1]
             with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("all".format(class_name,
-                                                  class_id))
+                HBNBCommand().onecmd("all")
             res = f.getvalue()[:-1]
             self.assertTrue(len(res) > 0)
             self.assertIn(class_id, res)
@@ -213,12 +220,24 @@ EOF  all  count  create  destroy  help  quit  show  update
                 HBNBCommand().onecmd("create {}".format(class_name))
             class_id = f.getvalue()[:-1]
             with patch('sys.stdout', new=StringIO()) as f:
-                HBNBCommand().onecmd("{}.all()".format(class_name,
-                                                       class_id))
+                HBNBCommand().onecmd("{}.all()".format(class_name))
             res = f.getvalue()[:-1]
             self.assertTrue(len(res) > 0)
             self.assertIn(class_id, res)
         with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("garbage.all()")
+            HBNBCommand().onecmd("NotClass.all()")
         error = f.getvalue()[:-1]
         self.assertEqual(error, "** class doesn't exist **")
+
+    def test_class_count(self):
+        '''test advanced count command'''
+        for class_name in self.classes:
+            for x in range(5):
+                with patch('sys.stdout', new=StringIO()) as f:
+                    HBNBCommand().onecmd("create {}".format(class_name))
+                class_id = f.getvalue()[:-1]
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("{}.count()".format(class_name))
+            res = f.getvalue()[:-1]
+            self.assertTrue(len(res) > 0)
+            self.assertEqual(res, "5")
