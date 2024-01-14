@@ -362,7 +362,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         self.assertIn(attr, res)
         self.assertIn(value, res)
 
-    def test_update_BaseModel(self):
+    def test_update_Review(self):
         '''test update command on Review class'''
         class_name = "Review"
         attr = "foo"
