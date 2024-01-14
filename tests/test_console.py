@@ -28,3 +28,6 @@ EOF  all  count  create  destroy  help  quit  show  update
 
 '''
         self.assertEqual(help_str, f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:                                                                                     HBNBCommand().onecmd("help quit")
+        help_quit = 'Quit command to exit the program\n'
+        self.assertEqual(help_quit, f.getvalue())
