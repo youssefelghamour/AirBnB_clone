@@ -40,3 +40,10 @@ EOF  all  count  create  destroy  help  quit  show  update
             HBNBCommand().onecmd("help EOF")
         help_quit = 'EOF exit to the program\n'
         self.assertEqual(help_quit, f.getvalue())
+
+    def test_emptyline(self):
+        '''test empty input line for console'''
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("\n")
+        res = f.getvalue()
+        self.assertEqual("", res)
