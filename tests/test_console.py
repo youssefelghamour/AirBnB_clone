@@ -35,3 +35,10 @@ class TestConsole(unittest.TestCase):
                 HBNBCommand().onecmd("help all")
         with patch('sys.stdout', new=StringIO()) as f:
                 HBNBCommand().onecmd("help update")
+
+    def test_create(self):
+        '''test create <class_name> for console'''
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("create BaseModel")
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("create User")
