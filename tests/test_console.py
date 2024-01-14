@@ -18,3 +18,20 @@ class TestConsole(unittest.TestCase):
         '''test EOF for console'''
         with patch('sys.stdout', new=StringIO()) as f:
                 HBNBCommand().onecmd("EOF")
+
+    def test_help(self):
+        '''test help cmd for console'''
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("help show")
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("help quit")
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("help EOF")
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("help create")
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("help destroy")
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("help all")
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("help update")
