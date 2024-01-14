@@ -11,3 +11,4 @@ class TestConsole(unittest.TestCase):
     '''Test class for console module'''
     def test_quit_cmd(self):
         '''test quit command of console'''
+        self.assertTrue(HBNBCommand().onecmd("quit"))
