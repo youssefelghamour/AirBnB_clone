@@ -65,6 +65,7 @@ EOF  all  count  create  destroy  help  quit  show  update
             with patch('sys.stdout', new=StringIO()) as f:
                 HBNBCommand().onecmd("create {}".format(class_name))
             class_id = f.getvalue()[:-1]
+            self.assertTrue(len(class_id) > 0)
             with patch('sys.stdout', new=StringIO()) as f:
                 HBNBCommand().onecmd("all {}".format(class_name))
             self.assertTrue(class_id in f.getvalue())
