@@ -383,7 +383,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         self.assertIn(attr, res)
         self.assertIn(value, res)
 
-    def test_update_BaseModel(self):
+    def test_update_BaseModel_2(self):
         '''test update command on BaseModel class'''
         class_name = "BaseModel"
         attr = "foo"
@@ -403,7 +403,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         self.assertIn(attr, res)
         self.assertIn(value, res)
 
-    def test_update_City(self):
+    def test_update_City_2(self):
         '''test update command on City class'''
         class_name = "City"
         attr = "foo"
@@ -423,7 +423,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         self.assertIn(attr, res)
         self.assertIn(value, res)
 
-    def test_update_State(self):
+    def test_update_State_2(self):
         '''test update command on State class'''
         class_name = "State"
         attr = "foo"
@@ -443,7 +443,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         self.assertIn(attr, res)
         self.assertIn(value, res)
 
-    def test_update_Amenity(self):
+    def test_update_Amenity_2(self):
         '''test update command on Amenity class'''
         class_name = "Amenity"
         attr = "foo"
@@ -463,7 +463,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         self.assertIn(attr, res)
         self.assertIn(value, res)
 
-    def test_update_User(self):
+    def test_update_User_2(self):
         '''test update command on User class'''
         class_name = "User"
         attr = "foo"
@@ -483,7 +483,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         self.assertIn(attr, res)
         self.assertIn(value, res)
 
-    def test_update_Place(self):
+    def test_update_Place_2(self):
         '''test update command on Place class'''
         class_name = "Place"
         attr = "foo"
@@ -503,7 +503,7 @@ EOF  all  count  create  destroy  help  quit  show  update
         self.assertIn(attr, res)
         self.assertIn(value, res)
 
-    def test_update_Review(self):
+    def test_update_Review_2(self):
         '''test update command on Review class'''
         class_name = "Review"
         attr = "foo"
@@ -552,3 +552,29 @@ EOF  all  count  create  destroy  help  quit  show  update
             HBNBCommand().onecmd('update BaseModel {} name'.format(class_id))
         error = f.getvalue()[:-1]
         self.assertEqual(error, "** value missing **")
+
+    def test_update_errors_2(self):
+        '''test errors of update command'''
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+        class_id = f.getvalue()[:-1]
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(".update()")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** class name missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("NotClass.update()")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** class doesn't exist **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.update()")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** instance id missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.update(4d65h43s4d5)")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** no instance found **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('BaseModel.update("{}")'.format(class_id))
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** attribute name missing **")
