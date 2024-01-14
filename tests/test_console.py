@@ -9,6 +9,9 @@ from unittest.mock import patch
 
 class TestConsole(unittest.TestCase):
     '''Test class for console module'''
+    classes = ['BaseModel', 'User', 'Place', 'State',
+               'City', 'Amenity', 'Review']
+
     def test_quit_cmd(self):
         '''test quit command of console'''
         with patch('sys.stdout', new=StringIO()) as f:
@@ -47,3 +50,13 @@ EOF  all  count  create  destroy  help  quit  show  update
             HBNBCommand().onecmd("\n")
         res = f.getvalue()
         self.assertEqual("", res)
+
+    def test_create(self):
+        '''test create command'''
+        for class_name in self.classes:
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("create {}".format(class_name))
+            class_id = f.getvalue()[:-1]
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("all {}".format(class_name))
+            self.assertTrue(class_id in f.getvalue())
