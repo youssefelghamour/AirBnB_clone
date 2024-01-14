@@ -95,3 +95,31 @@ EOF  all  count  create  destroy  help  quit  show  update
             HBNBCommand().onecmd("show BaseModel 564sdg654fg6f4g6")
         error = f.getvalue()[:-1]
         self.assertEqual(error, "** no instance found **")
+
+    def test_class_show_id(self):
+        '''test show advanced show command'''
+        for class_name in self.classes:
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("create {}".format(class_name))
+            class_id = f.getvalue()[:-1]
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd('{}.show("{}")'.format(class_name,
+                                                            class_id))
+            res = f.getvalue()
+            self.assertTrue(class_id in res)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(".show()")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** class name missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("NotClass.show()")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** class doesn't exist **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("BaseModel.show()")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** instance id missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('BaseModel.show(s5d4g6fg466g4f65g"")')
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** no instance found **")
