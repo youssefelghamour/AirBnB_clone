@@ -16,3 +16,15 @@ class TestConsole(unittest.TestCase):
     def test_EOF(self):
         '''test EOF for console'''
         self.assertTrue(HBNBCommand().onecmd("EOF"))
+
+    def test_help(self):
+        '''test help for console'''
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("help")
+        help_str = '''
+Documented commands (type help <topic>):
+========================================
+EOF  all  count  create  destroy  help  quit  show  update
+
+'''
+        self.assertEqual(help_str, f.getvalue())
