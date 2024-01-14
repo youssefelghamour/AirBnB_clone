@@ -60,3 +60,11 @@ EOF  all  count  create  destroy  help  quit  show  update
             with patch('sys.stdout', new=StringIO()) as f:
                 HBNBCommand().onecmd("all {}".format(class_name))
             self.assertTrue(class_id in f.getvalue())
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("create")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** class name missing **")
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("create NotClass")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** class doesn't exist **")
