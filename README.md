@@ -78,13 +78,18 @@ $
   ##### `test_models/`
   - Directory containting tests for all the classes/models:
 
-    ###### `test_amenity.py` - unittest for the Amenity class.
-    ###### `test_base_model.py` - unittest for the BaseModel class.
-    ###### `test_city.py` - unittest for the city class.
-    ###### `test_place.py` - unittest for the Place class.
-    ###### `test_review.py` - unittest for the Review class.
-    ###### `test_state.py` - unittest for the State class.
-    ###### `test_user.py` - unittest for the User class.
+    ##### `test_amenity.py` - unittest for the Amenity class.
+    ##### `test_base_model.py` - unittest for the BaseModel class.
+    ##### `test_city.py` - unittest for the city class.
+    ##### `test_place.py` - unittest for the Place class.
+    ##### `test_review.py` - unittest for the Review class.
+    ##### `test_state.py` - unittest for the State class.
+    ##### `test_user.py` - unittest for the User class.
+
+    #### `test_engine`
+    - Directory containing for the storage class.
+
+	##### `test_file_storage.py` - unittest for the FileStorage class.
 
 ## Authors
 * **Mahmoud Hammam** - [MahmoudHammam0](https://github.com/MahmoudHammam0)
