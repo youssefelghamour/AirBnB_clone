@@ -11,7 +11,11 @@ class TestConsole(unittest.TestCase):
     '''Test class for console module'''
     def test_quit_cmd(self):
         '''test quit command of console'''
-        self.assertTrue(HBNBCommand().onecmd("quit"))
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("quit")
+        res = f.getvalue()
+        self.assertEqual("", res)
+        self.assertTrue(len(res) == 0)
 
     def test_EOF(self):
         '''test EOF for console'''
