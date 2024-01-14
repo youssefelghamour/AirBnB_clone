@@ -191,6 +191,8 @@ class HBNBCommand(cmd.Cmd):
                     arg = (parts[0] + ' ' + parts[1][1] + ' ' +
                            parts[1][2] + ' ' + parts[1][3])
                     the_command(arg)
+        else:
+            print("** invalid command: <class name>.command() **")
 
 
 if __name__ == '__main__':
