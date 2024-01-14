@@ -241,3 +241,23 @@ EOF  all  count  create  destroy  help  quit  show  update
             res = f.getvalue()[:-1]
             self.assertTrue(len(res) > 0)
             self.assertEqual(res, "5")
+
+    def test_update_BaseModel(self):
+        '''test update command on BaseModel class'''
+        class_name = "BaseModel"
+        attr = "foo"
+        value = "Bar"
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create {}".format(class_name))
+        class_id = f.getvalue()[:-1]
+        command = "update {} {} {} {}".format(class_name, class_id,
+                                              attr, value)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(command)
+        res = f.getvalue()
+        self.assertEqual(len(res), 0)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('{}.show("{}")'.format(class_name, class_id))
+        res = f.getvalue()
+        self.assertIn(attr, res)
+        self.assertIn(value, res)
