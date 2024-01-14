@@ -261,3 +261,123 @@ EOF  all  count  create  destroy  help  quit  show  update
         res = f.getvalue()
         self.assertIn(attr, res)
         self.assertIn(value, res)
+
+    def test_update_City(self):
+        '''test update command on City class'''
+        class_name = "City"
+        attr = "foo"
+        value = "Bar"
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create {}".format(class_name))
+        class_id = f.getvalue()[:-1]
+        command = "update {} {} {} {}".format(class_name, class_id,
+                                              attr, value)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(command)
+        res = f.getvalue()
+        self.assertEqual(len(res), 0)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('{}.show("{}")'.format(class_name, class_id))
+        res = f.getvalue()
+        self.assertIn(attr, res)
+        self.assertIn(value, res)
+
+    def test_update_State(self):
+        '''test update command on State class'''
+        class_name = "State"
+        attr = "foo"
+        value = "Bar"
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create {}".format(class_name))
+        class_id = f.getvalue()[:-1]
+        command = "update {} {} {} {}".format(class_name, class_id,
+                                              attr, value)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(command)
+        res = f.getvalue()
+        self.assertEqual(len(res), 0)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('{}.show("{}")'.format(class_name, class_id))
+        res = f.getvalue()
+        self.assertIn(attr, res)
+        self.assertIn(value, res)
+
+    def test_update_Amenity(self):
+        '''test update command on Amenity class'''
+        class_name = "Amenity"
+        attr = "foo"
+        value = "Bar"
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create {}".format(class_name))
+        class_id = f.getvalue()[:-1]
+        command = "update {} {} {} {}".format(class_name, class_id,
+                                              attr, value)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(command)
+        res = f.getvalue()
+        self.assertEqual(len(res), 0)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('{}.show("{}")'.format(class_name, class_id))
+        res = f.getvalue()
+        self.assertIn(attr, res)
+        self.assertIn(value, res)
+
+    def test_update_User(self):
+        '''test update command on User class'''
+        class_name = "User"
+        attr = "foo"
+        value = "Bar"
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create {}".format(class_name))
+        class_id = f.getvalue()[:-1]
+        command = "update {} {} {} {}".format(class_name, class_id,
+                                              attr, value)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(command)
+        res = f.getvalue()
+        self.assertEqual(len(res), 0)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('{}.show("{}")'.format(class_name, class_id))
+        res = f.getvalue()
+        self.assertIn(attr, res)
+        self.assertIn(value, res)
+
+    def test_update_Place(self):
+        '''test update command on Place class'''
+        class_name = "Place"
+        attr = "foo"
+        value = "Bar"
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create {}".format(class_name))
+        class_id = f.getvalue()[:-1]
+        command = "update {} {} {} {}".format(class_name, class_id,
+                                              attr, value)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(command)
+        res = f.getvalue()
+        self.assertEqual(len(res), 0)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('{}.show("{}")'.format(class_name, class_id))
+        res = f.getvalue()
+        self.assertIn(attr, res)
+        self.assertIn(value, res)
+
+    def test_update_BaseModel(self):
+        '''test update command on Review class'''
+        class_name = "Review"
+        attr = "foo"
+        value = "Bar"
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create {}".format(class_name))
+        class_id = f.getvalue()[:-1]
+        command = "update {} {} {} {}".format(class_name, class_id,
+                                              attr, value)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd(command)
+        res = f.getvalue()
+        self.assertEqual(len(res), 0)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('{}.show("{}")'.format(class_name, class_id))
+        res = f.getvalue()
+        self.assertIn(attr, res)
+        self.assertIn(value, res)
