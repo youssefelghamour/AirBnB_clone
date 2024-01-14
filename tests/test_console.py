@@ -13,3 +13,8 @@ class TestConsole(unittest.TestCase):
         '''test quit command of console'''
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("quit")
+
+    def test_EOF(self):
+        '''test EOF for console'''
+        with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("EOF")
