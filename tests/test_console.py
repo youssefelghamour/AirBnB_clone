@@ -194,7 +194,7 @@ EOF  all  count  create  destroy  help  quit  show  update
             class_id = f.getvalue()[:-1]
             with patch('sys.stdout', new=StringIO()) as f:
                 HBNBCommand().onecmd("all".format(class_name,
-                                                            class_id))
+                                                  class_id))
             res = f.getvalue()[:-1]
             self.assertTrue(len(res) > 0)
             self.assertIn(class_id, res)
@@ -203,5 +203,22 @@ EOF  all  count  create  destroy  help  quit  show  update
             self.assertTrue(class_id in f.getvalue()[:-1])
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("all NotClass")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** class doesn't exist **")
+
+    def test_class_all(self):
+        '''test advanced all command'''
+        for class_name in self.classes:
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("create {}".format(class_name))
+            class_id = f.getvalue()[:-1]
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("{}.all()".format(class_name,
+                                                       class_id))
+            res = f.getvalue()[:-1]
+            self.assertTrue(len(res) > 0)
+            self.assertIn(class_id, res)
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("garbage.all()")
         error = f.getvalue()[:-1]
         self.assertEqual(error, "** class doesn't exist **")
