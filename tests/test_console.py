@@ -185,3 +185,23 @@ EOF  all  count  create  destroy  help  quit  show  update
             HBNBCommand().onecmd('BaseModel.destroy(s5d4g6fg466g4f65g"")')
         error = f.getvalue()[:-1]
         self.assertEqual(error, "** no instance found **")
+
+    def test_all(self):
+        '''test all command'''
+        for class_name in self.classes:
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("create {}".format(class_name))
+            class_id = f.getvalue()[:-1]
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("all".format(class_name,
+                                                            class_id))
+            res = f.getvalue()[:-1]
+            self.assertTrue(len(res) > 0)
+            self.assertIn(class_id, res)
+            with patch('sys.stdout', new=StringIO()) as f:
+                HBNBCommand().onecmd("all {}".format(class_name))
+            self.assertTrue(class_id in f.getvalue()[:-1])
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("all NotClass")
+        error = f.getvalue()[:-1]
+        self.assertEqual(error, "** class doesn't exist **")
