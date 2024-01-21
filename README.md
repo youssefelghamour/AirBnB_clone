@@ -3,7 +3,7 @@
 ## Description
 This project is an implementation of the first step towards building an AirBnB clone. The main focus is on creating a command interpreter to manage AirBnB objects. The back-end work involves the use of Python, Object-Oriented Programming (OOP), and concepts like JSON serialization, deserialization, and unit testing.
 
-Additionally, the project now includes the Web static component, involving front-end development. The goal is to build simple HTML static pages and apply CSS styling, creating a design prototype for AirBnB objects. The project encompasses concepts such as HTML, CSS, and the trinity of front-end quality. 
+Additionally, the project now includes the Web static component, involving front-end development. The goal is to build simple HTML static pages and apply CSS styling, creating a design prototype for AirBnB objects. The project encompasses concepts such as HTML and CSS.
 
 ## Command Interpreter
 The command interpreter allows users to interact with the AirBnB objects by performing various operations, including creating new objects, retrieving objects from files or databases, updating attributes, and more.
