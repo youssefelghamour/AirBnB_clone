@@ -20,6 +20,5 @@ styles: Folder containing CSS files for styling the web pages.
 - header.css: Styles for the header.
 - filters.css: Styles for filters and search results.
 - places.css: Styles for displaying places results.
-- index.css: General styles for the index page.
 
 images: Folder containing the images and icons used in this project.
